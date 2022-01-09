@@ -1,2 +1,2 @@
-# LearningRepos
+# LearningRepos Dmitricha Vakhnenko
  
