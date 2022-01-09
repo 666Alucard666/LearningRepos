@@ -11,7 +11,7 @@ namespace BLL.Commands
     {
         public override string Name => "cg";
 
-        public override string? Execute(string command)
+        public override string Execute(string command)
         {
             var determinator = new ArgumentsDeterminator(command, 2);
             var filesPath = Directory.GetFiles(Directory.GetCurrentDirectory());

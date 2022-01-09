@@ -11,12 +11,15 @@ namespace BLL.Commands
     {
         public override string Name => "renf";
 
-        public override string? Execute(string command)
+        public string? PathCurrent { get; set; }
+
+        public override string Execute(string command)
         {
             var determinator = new ArgumentsDeterminator(command, 3);
-            if (Directory.Exists(Directory.GetCurrentDirectory() + @"\" + determinator.Flags[0]))
+            this.PathCurrent = Directory.GetCurrentDirectory() + @"\" + determinator.Flags[0];
+            if (Directory.Exists(this.PathCurrent))
             {
-                File.Move(Directory.GetCurrentDirectory() + @"\" + determinator.Flags[0], Directory.GetCurrentDirectory() + @"\" + determinator.Flags[1]);
+                File.Move(this.PathCurrent, Directory.GetCurrentDirectory() + @"\" + determinator.Flags[1]);
                 return "Success!";
             }
             else if (Path.GetInvalidFileNameChars().Any(i => determinator.Flags[0].Contains(i)) || Path.GetInvalidFileNameChars().Any(i => determinator.Flags[1].Contains(i)))
@@ -25,7 +28,7 @@ namespace BLL.Commands
             }
             else
             {
-                throw new FileNotFoundException($"Can't find such file {Directory.GetCurrentDirectory() + @"\" + determinator.Flags[0]}");
+                throw new FileNotFoundException($"Can't find such file {this.PathCurrent}");
             }
         }
     }

@@ -11,7 +11,7 @@ namespace BLL.Commands
     {
         public override string Name => "crd";
 
-        public override string? Execute(string command)
+        public override string Execute(string command)
         {
             var determinator = new ArgumentsDeterminator(command, 2);
 

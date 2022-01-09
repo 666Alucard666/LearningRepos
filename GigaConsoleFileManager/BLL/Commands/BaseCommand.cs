@@ -12,6 +12,6 @@ namespace BLL.Commands
     {
         public abstract string Name { get; }
 
-        public abstract string? Execute(string command);
+        public abstract string Execute(string command);
     }
 }

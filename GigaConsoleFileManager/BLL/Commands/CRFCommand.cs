@@ -11,7 +11,7 @@ namespace BLL.Commands
     {
         public override string Name => "crf";
 
-        public override string? Execute(string command)
+        public override string Execute(string command)
         {
             var determinator = new ArgumentsDeterminator(command, 2);
             if (string.IsNullOrEmpty(determinator.Flags[0]))

@@ -11,17 +11,20 @@ namespace BLL.Commands
     {
         public override string Name => "delf";
 
-        public override string? Execute(string command)
+        public string? PathCurrent { get; set; }
+
+        public override string Execute(string command)
         {
             var determinator = new ArgumentsDeterminator(command, 2);
-            if (!string.IsNullOrEmpty(determinator.Flags[0]) && File.Exists(Directory.GetCurrentDirectory() + @"\" + determinator.Flags[0]))
+            this.PathCurrent = Directory.GetCurrentDirectory() + @"\" + determinator.Flags[0];
+            if (!string.IsNullOrEmpty(determinator.Flags[0]) && File.Exists(this.PathCurrent))
             {
                 File.Delete(Directory.GetCurrentDirectory() + determinator.Flags[0]);
                 return "Success!";
             }
             else
             {
-                throw new FileNotFoundException($"Can't find such file {Directory.GetCurrentDirectory() + @"\" + determinator.Flags[0]}");
+                throw new FileNotFoundException($"Can't find such file {this.PathCurrent}");
             }
         }
     }

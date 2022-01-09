@@ -11,10 +11,13 @@ namespace BLL.Commands
     {
         public override string Name => "rf";
 
-        public override string? Execute(string command)
+        public string? PathCurrent { get; set; }
+
+        public override string Execute(string command)
         {
             var determinator = new ArgumentsDeterminator(command, 2);
-            if (string.IsNullOrEmpty(determinator.Flags[0]) || !File.Exists(Directory.GetCurrentDirectory() + @"\" + determinator.Flags[0]))
+            this.PathCurrent = Directory.GetCurrentDirectory() + @"\" + determinator.Flags[0];
+            if (string.IsNullOrEmpty(determinator.Flags[0]) || !File.Exists(this.PathCurrent))
             {
                 throw new ArgumentNullException($"Incorrect file's name.");
             }

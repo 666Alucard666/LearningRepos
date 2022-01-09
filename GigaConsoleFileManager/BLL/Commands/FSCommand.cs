@@ -11,6 +11,8 @@ namespace BLL.Commands
     {
         public override string Name => "fs";
 
+        public string? PathCurrent { get; set; }
+
         public static string ArrayJoin(string[] array, char symb)
         {
             var result = string.Empty;
@@ -22,10 +24,11 @@ namespace BLL.Commands
             return result;
         }
 
-        public override string? Execute(string command)
+        public override string Execute(string command)
         {
             var determinator = new ArgumentsDeterminator(command, 2);
-            if (string.IsNullOrEmpty(determinator.Flags[0]) || !File.Exists(Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar + determinator.Flags[0]))
+            this.PathCurrent = Directory.GetCurrentDirectory() + @"\" + determinator.Flags[0];
+            if (string.IsNullOrEmpty(determinator.Flags[0]) || !File.Exists(this.PathCurrent))
             {
                 throw new ArgumentNullException($"Incorrect file's name.");
             }
